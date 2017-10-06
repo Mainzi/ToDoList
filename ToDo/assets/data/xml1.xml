@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<tasks>
+  <task>
+    <description>Описание задания</description>
+    <day>День недели</day>
+    <month>Месяц</month>
+    <status>Выполнено или нет</status>
+  </task>
+</tasks>
