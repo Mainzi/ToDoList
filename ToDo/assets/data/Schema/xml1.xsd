@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+targetNamespace="http://todolistmainzi.azurewebsites.net/"
+xmlns="http://todolistmainzi.azurewebsites.net/"
+elementFormDefault="qualified">
+  <xs:element name="tasks">
+
+    <xs:element name="task" maxOccurs="unbounded">
+       <xs:complexType>
+          <xs:sequence>
+             <xs:element name="description" type="xs:string"/>
+             <xs:element name="date" type="xs:date"/>
+             <xs:element name="status" type="xs:boolean" default="false"/>
+          </xs:sequence>
+       </xs:complexType>
+    </xs:element>
+
+  </xs:element>
+</xs:schema>

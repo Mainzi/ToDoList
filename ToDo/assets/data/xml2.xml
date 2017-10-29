@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
-<tasks>
+<tasks xmlns="http://todolistmainzi.azurewebsites.net/"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://todolistmainzi.azurewebsites.net/ Schema/xml2.xsd">
   <task
     description = "Описание задания"
-    day = "День недели"
-    month = "Месяц"
+    date = "2002-09-24"
     status = "Выполнено или нет"/>
 </tasks>
