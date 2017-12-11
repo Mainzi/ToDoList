@@ -1,3 +1,42 @@
+window.addEventListener('load', function() { 
+var timeBtn = document.getElementById('btn-time'); 
+var timeSpan = document.getElementById('time-show'); 
+
+timeBtn.addEventListener('click', function() { 
+timeSpan.innerHTML = ''; 
+
+getJSON('https://wt-49cfcc8687b2ed2922375dbd5af800ed-0.run.webtask.io/showTime',
+function(err, data) { 
+if (err !== null) { 
+alert('Something went wrong: ' + err); 
+} else { 
+timeSpan.innerHTML = data.Time; 
+} 
+} 
+); 
+}); 
+
+function getJSON (url, callback) { 
+var httpRequest = new XMLHttpRequest(); 
+
+httpRequest.open('GET', url, true); 
+httpRequest.responseType = 'json'; 
+httpRequest.onload = function() { 
+var status = httpRequest.status; 
+if (status === 200) { 
+callback(null, httpRequest.response); 
+} else { 
+callback(status, httpRequest.response); 
+} 
+}; 
+
+httpRequest.send(); 
+}; 
+
+});
+
+
+
 $('.form').find('input, textarea').on('keyup blur focus', function (e) {
 
   var $this = $(this),
