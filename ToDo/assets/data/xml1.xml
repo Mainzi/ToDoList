@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
-<tasks xmlns="http://todolistmainzi.azurewebsites.net/"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="http://todolistmainzi.azurewebsites.net/ Schema/xml1.xsd">
+<tasks>
   <task>
-    <description>Описание задания</description>
-    <date>2007-09-24</date>
-    <status>Выполнено или нет</status>
+    <description>Иди туда</description>
+    <key>что-то уникальное0129489214</key>
+  </task>
+  <task>
+    <description>Иди сюда</description>
+    <key>уникальное21зк80392</key>
   </task>
 </tasks>

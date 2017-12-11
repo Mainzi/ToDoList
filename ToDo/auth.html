@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Sign-Up/Login Form</title>
+  <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="css/auth.css">
+
+
+</head>
+
+<script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyD0Ezz7rcKRxbUUBurcnAax_ReYH7ECYSQ",
+    authDomain: "todo-list-29722.firebaseapp.com",
+    databaseURL: "https://todo-list-29722.firebaseio.com",
+    projectId: "todo-list-29722",
+    storageBucket: "todo-list-29722.appspot.com",
+    messagingSenderId: "8917986810"
+  };
+  firebase.initializeApp(config);
+</script>
+
+<body>
+  <div class="form">
+
+      <ul class="tab-group">
+        <li class="tab active"><a href="#signup">Sign Up</a></li>
+        <li class="tab"><a href="#login">Log In</a></li>
+      </ul>
+
+      <div class="tab-content">
+        <div id="signup">
+          <h1>Sign Up for Free</h1>
+
+          <form action="/" method="post">
+
+          <div class="field-wrap">
+            <label>
+              Email Address<span class="req">*</span>
+            </label>
+            <input id="email-sign-up" type="email" required autocomplete="off"/>
+          </div>
+
+          <div class="field-wrap">
+            <label>
+              Set A Password<span class="req">*</span>
+            </label>
+            <input id="password-sign-up" type="password"required autocomplete="off"/>
+          </div>
+
+          <button id = "sign-up"  class="button button-block"/>Get Started</button>
+
+          </form>
+
+        </div>
+
+        <div id="login">
+          <h1>Welcome Back!</h1>
+
+          <form action="/" method="post">
+
+            <div class="field-wrap">
+            <label>
+              Email Address<span class="req">*</span>
+            </label>
+            <input id="email-log-in" type="email" required autocomplete="off"/>
+          </div>
+
+          <div class="field-wrap">
+            <label>
+              Password<span class="req">*</span>
+            </label>
+            <input id="password-log-in" type="password"required autocomplete="off"/>
+          </div>
+
+          <button id = "log-in" class="button button-block"/>Log In</button>
+
+          </form>
+
+        </div>
+
+      </div>
+
+</div>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script  src="js/auth.js"></script>
+
+</body>
+</html>

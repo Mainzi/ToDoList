@@ -9,8 +9,7 @@ elementFormDefault="qualified">
        <xs:complexType>
           <xs:sequence>
              <xs:element name="description" type="xs:string"/>
-             <xs:element name="date" type="xs:date"/>
-             <xs:element name="status" type="xs:boolean" default="false"/>
+             <xs:element name="key" type="xs:string"/>
           </xs:sequence>
        </xs:complexType>
     </xs:element>

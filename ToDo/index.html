@@ -3,54 +3,105 @@
    <head>
       <meta charset="utf-8">
       <title>ToDoList</title>
-      <link rel="stylesheet" href="assets/stylesheets/style.css">
+      <link rel="stylesheet" href="css/style.css">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,100&subset=cyrillic,latin">
+      <script src = "js/index.js"></script>
    </head>
+   <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+   <script>
+     // Initialize Firebase
+     var config = {
+       apiKey: "AIzaSyD0Ezz7rcKRxbUUBurcnAax_ReYH7ECYSQ",
+       authDomain: "todo-list-29722.firebaseapp.com",
+       databaseURL: "https://todo-list-29722.firebaseio.com",
+       projectId: "todo-list-29722",
+       storageBucket: "todo-list-29722.appspot.com",
+       messagingSenderId: "8917986810"
+     };
+     firebase.initializeApp(config);
+   </script>
+
    <body>
       <header class="primary-header container group">
          <h1 class="logo">
             <a href="index.html">ToDo <br>List</a>
          </h1>
-         <h3 class="tagline">Хватит бездельничать. Пора создать видимость деятельности.</h3>
+         <button id="signOut"  class="button button-block">Выход</button>
+         <h2 id="login" class="login">Vffsdfweefwefewfkj</h2>
+         <h2 class="tagline">Хватит бездельничать. Пора создать видимость деятельности.</h2>
          <nav class="nav primary-nav">
-            <ul>
-              <li><a href="index.html">Сегодня</a></li><!--
-              --><li><a href="nextWeek.html">Следующая неделя</a></li><!--
-              --><li><a href="allTasks.html">Весь список</a></li><!--
-              --><li><a href="overdue.html">Просроченные</a></li><!--
-              --><li><a href="register.html">Регистрация</a></li>
+            <ul id="categoryId">
+               <li>Личные</li>
+               <li>Покупки</li>
+               <li>Рабочие</li>
+               <li>Встречи</li>
             </ul>
          </nav>
       </header>
+
       <section>
-         <h2 class='center'>
-            Одна задача на сегодня.
-         </h2>
-         <ul class='todo'>
-           <li class='todo-item'>
-                <P>Залить на азур</P>
-           </li>
-           <li class='todo-item'>
-                <P>Посмотреть xml первый вариант </P>
-                <a href="assets/data/xml1.xml" target="_blank"> http://todolistmainzi.azurewebsites.net/assets/data/xml1.xml</a>
-           </li>
-           <li class='todo-item'>
-                <P>Посмотерть xml второй вариант </P>
-                <a href="assets/data/xml2.xml" target="_blank"> http://todolistmainzi.azurewebsites.net/assets/data/xml2.xml</a>
-           </li>
-           <li class='todo-item'>
-                <P>Посмотреть json   </P>
-                <a href="assets/data/json.txt" target="_blank"> http://todolistmainzi.azurewebsites.net/assets/data/json.txt</a>
-           </li>
-            <label for="Add task">
-              <li class='todo-item'>
-                   <input id="Add task" placeholder='Добавить задачу'>
-              </li>
-            </label>
-            <li class='todo-item-clear'>
-               Удалить завершенные задачи
-            </li>
-         </ul>
+        <div id="myDIV" class="header">
+          <h2 id="header">Личные</h2>
+        <input type="text" id="myInput" placeholder="Новое задание...">
+        <span id="addBtn" onclick="newElement()" class="addBtn">Добавить</span>
+      </div>
+
+      <ul id="myUL">
+
+      </ul>
       </section>
    </body>
+
+   <script>
+   // Create a "close" button and append it to each list item
+   var myNodelist = document.getElementsByClassName("task");
+   var i;
+   for (i = 0; i < myNodelist.length; i++) {
+    var span = document.createElement("SPAN");
+    var txt = document.createTextNode("\u00D7");
+    span.className = "close";
+    span.appendChild(txt);
+    myNodelist[i].appendChild(span);
+   }
+
+   var close = document.getElementsByClassName("close");
+   var i;
+   for (i = 0; i < close.length; i++) {
+    close[i].onclick = function() {
+
+      var div = this.parentElement;
+      div.style.display = "none";
+    }
+   }
+   var catList = document.getElementById("categoryId"); // ссылка на контейнер пунктов списка
+   catList.onclick = function(e){
+     if(e.target.textContent.length < 15){
+       document.getElementById("header").textContent = e.target.textContent;
+       setCategory(e.target.textContent);
+       updateTasksInCategory(firebase.auth().currentUser.uid);
+     }
+   }
+
+
+   </script>
+
+   <script>
+       firebase.auth().onAuthStateChanged(function(user) {
+         window.user = user;
+         if(!window.user){
+           location.href = 'auth.html';
+         }else {
+            document.getElementById("login").textContent = user.email;
+           updateTasksInCategory(user.uid);
+        }
+       });
+
+      document.querySelector('#signOut').addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        firebase.auth().signOut();
+      });
+      
+
+   </script>
 </html>
