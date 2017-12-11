@@ -1,161 +1,118 @@
 swagger: "2.0"
 info:
-  description: "This is a 'todo list' app"
+  description: "Todo list for your task"
   version: "1.0.0"
-  title: "ToDo"
+  title: "Todo list"
   termsOfService: "http://swagger.io/terms/"
   contact:
     email: "apiteam@swagger.io"
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "intechwebprog.azurewebsites.net"
-basePath: "/api/"
+host: "http://todolistmainzi.azurewebsites.net"
+basePath: "/v2"
 tags:
-- name: "task"
-  description: "Operations about user"
-- name: "list"
-  description: "List of tasks"
+
+- name: "tasks"
+  description: "Your task in database"
+  externalDocs:
+    description: "Find out more about our store"
+    url: "http://swagger.io"
 schemes:
 - "http"
-"paths": {
-    "/task": {
-      "post": {
-        "tags": [
-          "task"
-        ],
-        "summary": "Add a new task to the database",
-        "description": "",
-        "operationId": "addtask",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "task object that needs to be added to the database",
-            "required": true,
-            "schema": {
-              "$ref": "#/"
-            }
-          }
-        ],
-        "responses": {
-          "405": {
-            "description": "Invalid input"
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "task"
-        ],
-        "summary": "Update an existing task",
-        "description": "",
-        "operationId": "updatetask",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "task object that needs to be added to the database",
-            "required": true,
-            "schema": {
-              "$ref": "#/"
-            }
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "task not found"
-          },
-          "405": {
-            "description": "Validation exception"
-          }
-        }
-      },
-      "get": {
-        "tags": [
-          "task"
-        ],
-        "summary": "Get tasks",
-        "description": "",
-        "operationId": "gettasks",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Get existing tasks",
-            "required": true,
-            "schema": {
-              "$ref": "#/"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "additionalProperties": {
-                "type": "integer",
-                "format": "int32"
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "task"
-        ],
-        "summary": "Delete tasks",
-        "description": "",
-        "operationId": "deltasks",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Delete existing tasks",
-            "required": true,
-            "schema": {
-              "$ref": "#/"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "additionalProperties": {
-                "type": "integer",
-                "format": "int32"
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+paths:
+  /tasks/{category}/{uid}/{key}:
+    post:
+      tags:
+      - "tasks"
+      summary: "Add task"
+      description: "For valid response description your task - string. Other values will generated exceptions"
+      operationId: "postTask"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "description"
+        in: "path"
+        description: "Description of task that needs to be post"
+        required: true
+        type: "string"
+      - name: "taskKey"
+        in: "path"
+        description: "Key of task that needs to be post"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+    get:
+      tags:
+      - "tasks"
+      summary: "Find task by KEY"
+      description: "For valid response try string KEYs. Other values will generated exceptions"
+      operationId: "getTaskByKey"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "taskKey"
+        in: "path"
+        description: "Key of task that needs to be get"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Task"
+        400:
+          description: "Invalid Key supplied"
+        404:
+          description: "Task not found"
+    delete:
+      tags:
+      - "tasks"
+      summary: "Delete your task"
+      description: "For valid response try string KEYs"
+      operationId: "deleteOrder"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "taskKEY"
+        in: "path"
+        description: "KEY of the order that needs to be deleted"
+        required: true
+        type: "string"
+      responses:
+        400:
+          description: "Invalid KEY supplied"
+        404:
+          description: "Task not found"
+securityDefinitions:
+  petstore_auth:
+    type: "oauth2"
+    authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
+    flow: "implicit"
+    scopes:
+      write:pets: "modify pets in your account"
+      read:pets: "read your pets"
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+definitions:
+  Tas:
+    type: "object"
+    properties:
+      key:
+        type: "string"
+      description:
+        type: "string"
+    xml:
+      name: "Tag"
+
+  
 externalDocs:
   description: "Find out more about Swagger"
   url: "http://swagger.io"
