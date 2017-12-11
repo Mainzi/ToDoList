@@ -34,9 +34,14 @@ function updateTasksInCategory(uid) {
   });
 }
 
+function sum(a,b){
+  return a+b;
+}
+
 var category = "Личные";
 function setCategory(name) {
   category = name;
+   return category;
 }
 
 
